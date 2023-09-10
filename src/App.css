@@ -58,25 +58,25 @@ body {
   justify-content: center;
 }
 
-.search-box label {
-  margin-right: 0.9rem;
-  font-size: 1.8rem;
-}
-
 .search-box input {
-  width: 17rem;
+  width: 25rem;
   border: none;
   border-radius: 10px;
-  padding: 0.6rem;
+  padding: 0.8rem 1.5rem;
   transition: 0.4s;
   font-size: 0.9rem;
   font-weight: 500;
+  background-color: var(--color-primary-light);
+  color: var(--color-text);
+  font-size: 1.4rem;
 }
 .search-box input:focus {
-  outline-color: var(--color-primary-light);
-  outline-style: solid;
-  outline-width: 2px;
-  transform: scale(1.02);
+  outline: none;
+  box-shadow: 0 2.4rem 2.4rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+.search-box input::placeholder {
+  color: var(--color-text);
 }
 
 .results-box {
@@ -85,6 +85,7 @@ body {
 }
 .results-box p {
   font-weight: 600;
+  font-size: 1.1rem;
 }
 .main {
   display: flex;
@@ -97,14 +98,19 @@ body {
 }
 
 .box {
-  width: 34rem;
-  max-width: 34rem;
+  width: 38rem;
+  max-width: 38rem;
   background-color: var(--color-background-500);
   height: 100%;
   border-radius: 20px;
   position: relative;
   padding: 3rem 2rem;
   box-shadow: 0rem 1rem 1rem 0rem rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+.box::-webkit-scrollbar {
+  visibility: hidden;
+  width: 1px;
 }
 
 .toggle-button {
@@ -131,7 +137,6 @@ body {
 
 .movie-list {
   list-style: none;
-  overflow: auto;
   height: inherit;
 }
 
@@ -186,6 +191,7 @@ body {
 .summary h3 {
   text-align: center;
   margin-bottom: 15px;
+  font-size: 1.5rem;
 }
 .summary span {
   margin-right: 5px;
@@ -194,7 +200,151 @@ body {
   display: flex;
   justify-content: space-between;
 }
+.btn-back {
+  position: absolute;
+  top: 0.6rem;
+  top: 2%;
+  left: 3%;
+  aspect-ratio: 1;
+  height: 1.8rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--color-background-100);
+  color: var(--color-background-500);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  font-family: sans-serif;
+  font-size: 2.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+.btn-back:hover {
+  background-color: var(--color-background-900);
+}
+.arrow {
+  display: flex;
+  aspect-ratio: 1;
+  justify-content: center;
+  align-items: center;
+  width: 13px;
+  height: 13px;
+}
 
+.movie-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.2rem;
+}
+.movie-container p {
+  font-size: 1rem;
+}
+.movie-container header {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+.movie-container header img {
+  grid-row: 1/ -1;
+  width: 100%;
+}
+.movie-container header p {
+  line-height: 2.5rem;
+}
+
+.movie-container h2 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+.movie-container section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.star-rating {
+  background-color: var(--color-background-100);
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  padding: 1rem;
+  margin-bottom: 0.9rem;
+  gap: 1rem;
+  border-radius: 20px;
+  width: 80%;
+}
+
+.btn-add {
+  padding: 15px 30px;
+  font-size: 2rem;
+  border-radius: 20px;
+  margin-top: 10px;
+  border: none;
+  background-color: var(--color-primary-light);
+  transition: 0.2s;
+  color: var(--color-text);
+  font-weight: 600;
+}
+.btn-add:hover {
+  background-color: var(--color-primary);
+}
+.btn-add:focus {
+  outline: none;
+}
+
+.watched-movies-list li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  grid-template-rows: auto auto auto;
+  column-gap: 1rem;
+  padding: 1.2rem 1.2rem;
+  margin-right: 10px;
+  border-bottom: 2px solid var(--color-background-100);
+  transition: 0.2s;
+}
+
+.watched-movies-list li img {
+  grid-row: 1/ -1;
+  width: 100%;
+}
+.watched-movies-list li h3 {
+  font-size: 1.4rem;
+}
+.watched-details {
+  display: flex;
+  gap: 1rem;
+}
+.watched-details p {
+  margin-right: 25px;
+  font-size: 1.1rem;
+}
+.del-btn {
+  position: absolute;
+  border: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-red);
+  transition: 0.2s;
+  top: 40%;
+  right: 10%;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.del-btn:hover {
+  background-color: var(--color-red-dark);
+  cursor: pointer;
+}
 /*
 FULL STAR
 

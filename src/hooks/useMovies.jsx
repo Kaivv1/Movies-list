@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { KEY } from "../helpers";
 
-export const useMovies = (query) => {
+export const useMovies = (query, callback) => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    callback?.();
+
     const controller = new AbortController();
     async function fetchMovies() {
       try {
@@ -21,7 +23,6 @@ export const useMovies = (query) => {
         const data = await res.json();
 
         if (data.Response === "False") throw new Error("No movie found 🚩");
-        console.log(data);
 
         setMovies(data.Search);
         setError("");

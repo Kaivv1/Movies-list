@@ -12,16 +12,31 @@ import ErrorMessage from "./ui/ErrorMessage";
 import { useMovies } from "./hooks/useMovies";
 import Summary from "./components/Summary";
 import MovieDetails from "./components/MovieDetails";
+import WatchedMoviesList from "./components/WatchedMoviesList";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   const [query, setQuery] = useState("");
-  const { movies, error, isLoading } = useMovies(query);
   const [selectedId, setSelectedId] = useState(null);
-  console.log(selectedId);
+  const [watchedMovies, setWatchedMovies] = useLocalStorage([], "watched");
+
+  const handleCloseMovie = () => {
+    setSelectedId(null);
+  };
+  const { movies, error, isLoading } = useMovies(query, handleCloseMovie);
 
   const handleSelectMovie = (id) => {
     setSelectedId((selectedId) => (selectedId === id ? null : id));
   };
+
+  const handleWatchedMovies = (movie) => {
+    setWatchedMovies((movies) => [...movies, movie]);
+  };
+
+  const handleDeleteWatched = (id) => {
+    setWatchedMovies((movies) => movies.filter((movie) => movie.imdbID !== id));
+  };
+
   return (
     <div className="app">
       <Navbar>
@@ -40,7 +55,22 @@ function App() {
         </Box>
 
         <Box>
-          {selectedId ? <MovieDetails selectedId={selectedId} /> : <Summary />}
+          {selectedId ? (
+            <MovieDetails
+              selectedId={selectedId}
+              onCloseMovie={handleCloseMovie}
+              onSetWatchedMovies={handleWatchedMovies}
+              watched={watchedMovies}
+            />
+          ) : (
+            <>
+              <Summary watched={watchedMovies} />
+              <WatchedMoviesList
+                watched={watchedMovies}
+                onDeleteWatched={handleDeleteWatched}
+              />
+            </>
+          )}
         </Box>
       </Main>
     </div>
