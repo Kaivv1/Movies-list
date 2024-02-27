@@ -6,5 +6,3 @@ export const average = (arr) =>
 export const checkIsNaN = (value, other) => {
   return isNaN(value) ? other : value;
 };
-// http://www.omdbapi.com/?apikey=${KEY}&s=${query}
-// http://www.omdbapi.com/?apikey=${KEY}&i=${id}
